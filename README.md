@@ -7,10 +7,14 @@ You need to have access to an Azure Subscription and a copy of the WideWorldImpo
 
 The simplest approach is to create a new Free Trial subscription which is sufficient to run all the exercises without any cost to you.
 
-Your computer will also need to have Azure Powershell's *Az* module and also the *AzureAD* module installed.
+You will need a suitable development and querying environment. This can either be your own computer if you have the appropriate software, or you can customise the Virtual Machine created in the ***00_BaselineConfig*** folder to increase the specification of the Virtual Machine to be a bit beefier.
 
-Your computer will also need to have a SQL Client tool such as Azure Data Studio or SQL Server Management Studio.
+The specific tools needed include:  
+* A SQL Client tool such as Azure Data Studio or SQL Server Management Studio.  
+* VSCode or another suitable PowerShell IDE  
+* Visual Studio 2019 (Community Edition is fine) configured for C# development.  
 
+For this Part of the Workshop, you will need to have a Management Group for your Azure tenant. Follow the process to ensure that you will have [Permissions to Define a Taxonomy](https://docs.microsoft.com/en-us/azure/security-center/security-center-management-groups) in Exercise2.
 
 ## Part 2 : Securing the Data
 
@@ -31,4 +35,14 @@ Navigate to the **00_DeployBaseline** folder and folow the instructions in the f
 ### Exercise 01 - Update the SQL Server specific configurations
 
 Navigate to the **01_UpdateSQLConfigs** folder and folow the instructions in the file *Exercise1_Guidance.md*.
+
+
+### Exercise 02 - Investigate Data Classification and Masking
+
+Navigate to the **02_DataClassificationAndMasking** folder and folow the instructions in the file *Exercise2_Guidance.md*.
+
+
+### Exercise 03 - Data Encryption
+
+Navigate to the **03_DataEncryption** folder and folow the instructions in the file *Exercise3_Guidance.md*.
 

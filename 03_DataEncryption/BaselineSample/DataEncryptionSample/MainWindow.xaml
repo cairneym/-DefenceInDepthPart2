@@ -1,0 +1,31 @@
+﻿<Window x:Class="DataEncryptionSample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DataEncryptionSample"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Button x:Name="SqlButton" Content="Run Query" Margin="30,10,10.333,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="62" Click="SqlButton_Click" Height="46"/>
+        <CheckBox x:Name="DecryptCheckbox" Content="Decrypt" Margin="100,15,10.333,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="62" />
+        <CheckBox x:Name="UnmaskCheckbox" Content="Unmask" Margin="100,40,10.333,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="62" />
+        <Grid>
+            <DataGrid x:Name="showCust" Margin="0,87,-0.333,122" AlternatingRowBackground="AliceBlue" AlternationCount="2" AutoGenerateColumns="False" ItemsSource="{Binding}" HeadersVisibility="Column">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Supplier" Binding="{Binding SupplierName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Reference" Binding="{Binding SupplierReference}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Bank" Binding="{Binding BankAccountName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Account Code" Binding="{Binding BankAccountCode}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Account Number" Binding="{Binding BankAccountNumber}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Phone" Binding="{Binding PhoneNumber}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Fax" Binding="{Binding FaxNumber}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Website" Binding="{Binding WebsiteURL}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Suburb" Binding="{Binding PostalAddressLine2}"></DataGridTextColumn>
+                <DataGridTextColumn Header="PostCode" Binding="{Binding PostalPostalCode}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        </Grid>
+        <TextBox x:Name="OutputTextBox" Margin="0,299,-0.333,0" TextWrapping="Wrap" FontFamily="Consolas" Background="#FF012345" Foreground="#FFCCCCCC" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+    </Grid>
+</Window>
