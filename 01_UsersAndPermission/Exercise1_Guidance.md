@@ -153,7 +153,7 @@ ORDER BY
 
 Permissions can be further controlled by using the *EXECUTE AS* statement within a Stored Procedure. Again this should be used with caution, but is often a good way to keep access to sensitive resources available to only a restricted audience. Something to consider is creating *USERS without LOGIN* to be the Schema Owners to allow you to be more explicit about your permission defintions.
 
-The use of the Built-In Database Roles is in almost all scenarios too much permissions for what the user's actually should have. A solution for this could be to define your own Database Roles to have very specific permissions and add the users to these custom Database Roles.
+The use of the Built-In Database Roles is in almost all scenarios enabling a higher level of permissions than what the users actually should have. A solution for this could be to define your own Database Roles to have very specific permissions and add the users to these custom Database Roles.
 
 One final thing to remember is that Database Permissions are **for the entire Database**. What does this mean? I find that it is very often forgotten that it is possible to connect to a database WITHOUT the application it was designed for. Many Developers will claim that they have the tightest security in their application and that additional effort at the Database is unnecessary. However, to properly defend your data, be aware that not every attack will come via the application and you should therefore design your security based on a User having direct access via domething like SQL Server Management Studio and design permissions accordingly.
 

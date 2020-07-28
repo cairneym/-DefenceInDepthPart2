@@ -6,7 +6,7 @@ Full day session on Securing your Azure SQL Database
 
 As part of Data Security, we need to understand what data that we have in our databases and what level of additional protection it should be afforded. SQL Server provides an inbuilt Classification Tool to achive this. The Taxonomy is initially locked down and requires elevated permissions at the highest level in Azure to add additional users with the rights to edit the Taxonomy. Once this is done though, the Classification Taxonomy is available to all SQL Databases in your tenant.  
 
-The usage of the Data CLassification is surfaced in a few ways. The most prominant and useful are frstly in the Database Audit outputs. The audit schema now includes an additional XML column with details of any Classifications in use for the audit event. These could be further exposed by also sending audits to an Event Hub, from which a Streaming Analytics query could look for anomalous entries and push them to a Service Bus queue where notifications could be send to your administrators.
+The usage of the Data Classification is surfaced in a few ways. The most prominent and useful are firstly in the Database Audit outputs. The audit schema now includes an additional XML column with details of any Classifications in use for the audit event. These could be further exposed by also sending audits to an Event Hub, from which a Streaming Analytics query could look for anomalous entries and push them to a Service Bus queue where notifications could be send to your administrators.
 
 The other way they are exposed is through the metadata of the database where it becomes easier to identify columns that should be either masked or encrypted to protect the sensitive data. 
 
@@ -19,7 +19,7 @@ Before proceeding with the tasks, you will need to have followed the steps to gr
 Update your current deployment using T-SQL to do the following tasks:
 
 **1.**  Create a *USER WITHOUT LOGIN* named **MaskedUser**. Give this use *SELECT* permissions on the *Purchasing.Suppliers* table.
-**2.**  Create a Stored Procedure *Application.GetCustomerInfo* that accepts a parameter named *BypassMasking* which is used to decide whether to use an *EXECUTE AS* caluse to run as the *MaskedUser* or as the calling user. Both options do the same SELECT from the *Purchasing.Suppliers* table 
+**2.**  Create a Stored Procedure *Application.GetCustomerInfo* that accepts a parameter named *BypassMasking* which is used to decide whether to use an *EXECUTE AS* clause to run as the *MaskedUser* or as the calling user. Both options do the same SELECT from the *Purchasing.Suppliers* table 
 **3.**  Configure ***Auditing*** for WideWorldImporters to a new Storage Account. Once configured, execute the query `EXEC Application.GetCustomerInfo 0`. Check the Audit Log using the query 
 ``` 
 WITH QueryWithXML
@@ -58,7 +58,7 @@ In this case, the Classification columns should all return NULL.
 
 From these exercises, we should see that there are no values appearing in the audit output before we have undertaken any Data Classifications. The move to Azure Security Center is very recent and has added a great deal of complexity in producing a custom Taxonomy. These steps need to be followed very carefully - and not that after applying the Security RBAC role you need to log out of the Portal and back in again.
 
-The use of Data Classification does immediately help in identifying where we might have exposed data. Where the classification has identified *Highly Classified* for example, then what protection is there on those columns? Are they Masked as a minimum - but preferably encrypted (which we will cover in the next exercise). Being able to query the Classification Metadata mkes it tivial to apply the required security to each of these columns.
+The use of Data Classification does immediately help in identifying where we might have exposed data. Where the classification has identified *Highly Classified* for example, then what protection is there on those columns? Are they Masked as a minimum - but preferably encrypted (which we will cover in the next exercise). Being able to query the Classification Metadata makes it trivial to apply the required security to each of these columns.
 
 Now that we have Classified data, we should be making use of this. We will get addtional benefit by holding an additional source of the permitted usage of the classified columns - for example, is there a list of approved IP Addresses or Applications or even users? Anything that appears in the Audit trace can be mapped to the columns and anything where these do not match can give us immediate notification of activity worth investigating further - perhaps sealing off a potential Data Breach.
 

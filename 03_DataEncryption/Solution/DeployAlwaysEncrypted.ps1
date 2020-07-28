@@ -46,11 +46,6 @@ $myAAD = Connect-AzureAD -TenantId $tenantID -AccountId $AccID
 
 # Set the paths to the ARM Template and Parameter files - they will be relative to this script file
 $thisPath = $PSScriptRoot
-$infraFile = "$thisPath\InfraDeploy.json"
-$VMFile = "$thisPath\VMDeploy.json"
-$VMParams = "$thisPath\VMDeployParams.json"
-$SQLFile = "$thisPath\SQLDeploy.json"
-$SQLParams = "$thisPath\SQLDeployParams.json"
 
 # Get the current Client IP Address
 $myIP = (Invoke-WebRequest -uri "http://ifconfig.me/ip").Content
@@ -121,3 +116,16 @@ Add-SqlAzureAuthenticationContext -Interactive
 # Generate a column encryption key, encrypt it with the column master key and create column encryption key metadata in the database. 
 $cekName = "WWICEK"
 New-SqlColumnEncryptionKey -Name $cekName -InputObject $database -ColumnMasterKey $cmkName
+
+# Change encryption schema
+
+$encryptionChanges = @()
+
+# Add changes for table [Purchasing].[Suppliers]
+$encryptionChanges += New-SqlColumnEncryptionSettings -ColumnName Purchasing.Suppliers.BankAccountName -EncryptionType Deterministic -EncryptionKey "WWICEK"
+$encryptionChanges += New-SqlColumnEncryptionSettings -ColumnName Purchasing.Suppliers.BankAccountBranch -EncryptionType Deterministic -EncryptionKey "WWICEK"
+$encryptionChanges += New-SqlColumnEncryptionSettings -ColumnName Purchasing.Suppliers.BankAccountCode -EncryptionType Randomized -EncryptionKey "WWICEK"
+$encryptionChanges += New-SqlColumnEncryptionSettings -ColumnName Purchasing.Suppliers.BankAccountNumber -EncryptionType Randomized -EncryptionKey "WWICEK"
+
+Set-SqlColumnEncryption -ColumnEncryptionSettings $encryptionChanges -InputObject $smoDatabase
+
