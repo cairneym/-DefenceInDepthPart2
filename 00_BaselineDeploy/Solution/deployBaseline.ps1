@@ -15,6 +15,17 @@ if (-not($azInstalled)) {
     Install-Module Az
 }
 Import-Module Az
+$aadInstalled = $(Get-InstalledModule | Where-Object {$_.name -eq 'AzureAD'}).name
+if (-not($aadInstalled)) {
+    Install-Module AzureAd -Scope CurrentUser
+}
+Import-Module AzureAD
+
+# Get the parameters needed to connect to AzureAD
+$currContext = Get-AzContext
+$tenantID = $CurrContext.Tenant.Id
+$AccID = $currContext.Account.Id
+$myAAD = Connect-AzureAD -TenantId $tenantID -AccountId $AccID
 
 # Set the paths to the ARM Template and Parameter files - they will be relative to this script file
 $thisPath = $PSScriptRoot
@@ -145,7 +156,7 @@ $importRequest = New-AzSqlDatabaseImport -ResourceGroupName $sqlRG `
    -DatabaseMaxSizeBytes 50000 `
    -StorageKeyType "StorageAccessKey" `
    -StorageKey $(Get-AzStorageAccountKey -ResourceGroupName $sqlRG -StorageAccountName $storage.StorageAccountName).Value[0] `
-   -StorageUri $(Get-AzStorageBlob -Blob 'WideWorldImporters-Standard.bacpac' -Container $cxtStorage.Name).ICloudBlob.Uri.AbsoluteUri `
+   -StorageUri $(Get-AzStorageBlob -Blob 'WideWorldImporters-Basic.bacpac' -Container $cxtStorage.Name).ICloudBlob.Uri.AbsoluteUri `
    -Edition "Standard" `
    -ServiceObjectiveName "S1" `
    -AdministratorLogin $sqlAdminUser `

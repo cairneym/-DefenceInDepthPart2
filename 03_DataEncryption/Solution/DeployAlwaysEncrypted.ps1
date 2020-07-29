@@ -127,5 +127,5 @@ $encryptionChanges += New-SqlColumnEncryptionSettings -ColumnName Purchasing.Sup
 $encryptionChanges += New-SqlColumnEncryptionSettings -ColumnName Purchasing.Suppliers.BankAccountCode -EncryptionType Randomized -EncryptionKey "WWICEK"
 $encryptionChanges += New-SqlColumnEncryptionSettings -ColumnName Purchasing.Suppliers.BankAccountNumber -EncryptionType Randomized -EncryptionKey "WWICEK"
 
-Set-SqlColumnEncryption -ColumnEncryptionSettings $encryptionChanges -InputObject $smoDatabase
+Set-SqlColumnEncryption -ColumnEncryptionSettings $encryptionChanges -InputObject $database
 

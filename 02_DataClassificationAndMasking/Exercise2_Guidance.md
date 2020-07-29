@@ -18,8 +18,8 @@ Before proceeding with the tasks, you will need to have followed the steps to gr
 
 Update your current deployment using T-SQL to do the following tasks:
 
-**1.**  Create a *USER WITHOUT LOGIN* named **MaskedUser**. Give this use *SELECT* permissions on the *Purchasing.Suppliers* table.
-**2.**  Create a Stored Procedure *Application.GetCustomerInfo* that accepts a parameter named *BypassMasking* which is used to decide whether to use an *EXECUTE AS* clause to run as the *MaskedUser* or as the calling user. Both options do the same SELECT from the *Purchasing.Suppliers* table 
+**1.**  Create a *USER WITHOUT LOGIN* named **MaskedUser**. Give this use *SELECT* permissions on the *Purchasing.Suppliers* table.  
+**2.**  Create a Stored Procedure *Application.GetCustomerInfo* that accepts a parameter named *BypassMasking* which is used to decide whether to use an *EXECUTE AS* clause to run as the *MaskedUser* or as the calling user. Both options do the same SELECT from the *Purchasing.Suppliers* table   
 **3.**  Configure ***Auditing*** for WideWorldImporters to a new Storage Account. Once configured, execute the query `EXEC Application.GetCustomerInfo 0`. Check the Audit Log using the query 
 ``` 
 WITH QueryWithXML
@@ -44,7 +44,7 @@ FROM QueryWithXML q1
 OUTER APPLY q1.classification.nodes('/sensitivity_attributes/sensitivity_attribute') AS T(c)
 ```  
 In this case, the Classification columns should all return NULL.  
-**4.**  From the **SQL Information Protection (preview)** blade, define a new Sensitivity Label named *Custom*. Attached to this, define a new Information Type for *Population* which uses *population* as the search term.
+**4.**  From the **SQL Information Protection (preview)** blade, define a new Sensitivity Label named *Custom*. Attached to this, define a new Information Type for *Population* which uses *population* as the search term.  
 **5.**  Review the Data Classification for the WideWorldImporters database and confirm that there are a number of columns with the new classification.    
 **6.**  Accept the recommendations for the *Custom* Sensitivity Label, all columns with a Phone Number and the **BankAccountName**, **BankAccountCode** and **BankAccountNumber** columns from the *Purchasing.Suppliers* table.  
 **7**  Create a T-SQL query that will show all the accepted Data Classification settings in the *WideWorldImporters* database.  
